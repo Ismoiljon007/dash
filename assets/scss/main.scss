@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    // background: #3c8a79;
+    background: #4D6A71;
+    // background: #636ac7;
+    color: #fffeff;
+}
+.login {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container {
+    padding: 0 20px;
+    max-width: 1320px !important;
+}
