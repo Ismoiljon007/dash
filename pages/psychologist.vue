@@ -2,7 +2,7 @@
     <div class="psychologist py-10">
         <div class="container">
             <div class="psychologist__cards-wrapper mb-[50px]">
-                <div class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
+                <NuxtLink to="/teacher" class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
                     <div class="psychologist__card-top">
                         <div class="psychologist__card-img">
                             <img src="@/assets/images/png/all.png" alt="">
@@ -14,8 +14,8 @@
                     </div>
                     <p class="psychologist__card-desc text-xl font-medium">Общий эмоциональный фон учеников</p>
                     <span class="inline-flex items-center rounded-md bg-[#bef264] px-2 py-1 text-lg font-medium text-black ring-1 ring-inset ring-[#bef264] psychologist__card-badge">Хорошо</span>
-                </div>
-                <div class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
+                </NuxtLink>
+                <NuxtLink to="/teacher" class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
                     <div class="psychologist__card-top">
                         <div class="psychologist__card-img">
                             <img src="@/assets/images/png/teachers.png" alt="">
@@ -27,8 +27,8 @@
                     </div>
                     <p class="psychologist__card-desc text-xl font-medium">Общий эмоциональный фон преподавателей</p>
                     <span class="inline-flex items-center rounded-md bg-[#bef264] px-2 py-1 text-lg font-medium text-black ring-1 ring-inset ring-[#bef264] psychologist__card-badge">Хорошо</span>
-                </div>
-                <div class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
+                </NuxtLink>
+                <NuxtLink to="/teacher" class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
                     <div class="psychologist__card-top">
                         <div class="psychologist__card-img">
                             <img src="@/assets/images/png/smile-emotion.png" alt="">
@@ -38,8 +38,8 @@
                         </div>
                     </div>
                     <span class="inline-flex items-center rounded-md bg-[#bef264] px-2 py-1 text-lg font-medium text-black ring-1 ring-inset ring-[#bef264] psychologist__card-badge">Хорошо</span>
-                </div>
-                <div class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
+                </NuxtLink>
+                <NuxtLink to="/teacher" class="psychologist__card bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5">
                     <div class="psychologist__card-top">
                         <div class="psychologist__card-img">
                             <img src="@/assets/images/png/depression.png" alt="">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <span class="inline-flex items-center rounded-md bg-[#f87171] px-2 py-1 text-lg font-medium text-black ring-1 ring-inset ring-[#f87171] psychologist__card-badge">Внимание!</span>
-                </div>
+                </NuxtLink>
             </div>
             <h2 class="psychologist__title text-3xl font-medium mb-5">ОБРАТИТЬ ВНИМАНИЕ</h2>
             <div class="psychologist__bottom-cards-wrapper grid grid-cols-3 gap-5">
