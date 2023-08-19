@@ -44,6 +44,7 @@
                     v-if="video">Включить веб-камеру </button>
                 <video ref="webcamRef" :class="{ 'block': !video }" class="object-cover hidden w-full h-full rounded-md"
                     autoplay></video>
+
             </div>
         </div>
 
@@ -52,6 +53,9 @@
 
 <script setup>
 import { useStore } from '~~/store/store';
+definePageMeta({
+    layout: "without",
+});
 const store = useStore()
 const router = useRouter()
 const webcamRef = ref(null)
@@ -61,15 +65,36 @@ async function start() {
     webcamRef.value.srcObject = stream;
     video.value = false
 }
+function takepicture() {
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext("2d");
+    context.drawImage(webcamRef.value, 0, 0, 320, 200);
+    const data = canvas.toDataURL("image/png");
+    const base64Data = canvas.toDataURL("image/png");
+
+    const base64ImageData = base64Data.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+
+    const binaryImageData = atob(base64ImageData);
+    const blob = new Blob([new Uint8Array(binaryImageData.length).map((_, i) => binaryImageData.charCodeAt(i))], { type: 'image/jpeg' });
+    const objectURL = URL.createObjectURL(blob);
+
+    const img = new Image();
+    console.log(objectURL);
+}
 const email = ref("")
 const password = ref("")
 async function login() {
     email.value = ""
     password.value = ""
-    router.push('/' + store.loginPage)
-}
-if(store.loginPage == null) {
-    router.push('/')
+    if (localStorage.getItem('loginPage') == 'parent') {
+        router.push('/parent')
+    } else if(localStorage.getItem('loginPage') == 'teacher-dash'){
+        router.push('/teacher-dash')
+    } else if(localStorage.getItem('loginPage') == 'psychologist') {
+        router.push('/psychologist')
+    } else {
+        router.push('/dashboard')
+    }
 }
 </script>
 

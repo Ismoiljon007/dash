@@ -15,6 +15,128 @@ body {
     justify-content: center;
 }
 .container {
-    padding: 0 20px;
+    width: 100%;
     max-width: 1320px !important;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.psychologist__cards-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.psychologist__card-img {
+    width: 168px;
+    flex-shrink: 0;
+    img {
+        width: 100%;
+    }
+}
+.psychologist__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+}
+.psychologist__card-top {
+    display: flex;
+    gap: 40px;
+}
+.psychologist__card-badge {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+
+
+.teacher__cards-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.teacher__card-img {
+    width: 168px;
+    flex-shrink: 0;
+    img {
+        width: 100%;
+    }
+}
+.teacher__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+}
+.teacher__card-top {
+    display: flex;
+    gap: 40px;
+}
+.teacher__card-badge {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+
+
+.dashboard {
+    height: 100vh;
+    .container {
+        width: 100%;
+    }
+    &__top {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+    }
+    &__bottom {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        background: #E5FEFF;
+    }
+}
+.dashboard__cards-wrapper {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.dashboard__card-img {
+    width: 168px;
+    flex-shrink: 0;
+    img {
+        width: 100%;
+    }
+}
+.dashboard__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+}
+.dashboard__card-top {
+    display: flex;
+    gap: 40px;
+}
+.dashboard__card-badge {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 550px;
 }

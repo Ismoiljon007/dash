@@ -1,8 +1,9 @@
 <template>
-    <NuxtLink to="/student/user" class="bg-[#fff] text-[#222] grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] shadow-md rounded-md p-3.5">
+    <NuxtLink to="/student/user"
+        class="bg-[#fff] text-[#222] grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] shadow-md rounded-md p-3.5">
         <div class="admin-list__item-user">
-            <img class="rounded-lg mb-1 admin-list__item-user-img" src="https://picsum.photos/120" alt="">
-            <h2 class="text-lg font-medium">Алиев Валижон</h2>
+            <img class="rounded-lg mb-1 admin-list__item-user-img" :src="user?.face_result?.source_photo" :alt="user?.face_result?.source_photo_name">
+            <h2 class="user-name text-lg font-medium">{{ user?.meta?.last_name }} {{ user?.meta?.first_name }}</h2>
         </div>
         <h3 class="admin-list__item-class">6 “Б”</h3>
         <h4 class="admin-list__item-age">12</h4>
@@ -17,12 +18,15 @@
 </template>
 
 <script setup>
-
+const { user } = defineProps(['user'])
 </script>
 
 <style lang="scss">
 .admin-list__item-user-img {
     width: 112px;
     height: 112px;
+}
+.user-name {
+    text-transform: capitalize;
 }
 </style>

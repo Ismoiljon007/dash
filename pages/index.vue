@@ -11,13 +11,13 @@
                         </div>
                         <h4 class="chose-user__item-title text-xl font-medium">АДМИНИСТРАТОР</h4>
                     </li>
-                    <li @click="toPage('psycholog')" class="chose-user__item flex flex-col items-center gap-3">
+                    <li @click="toPage('psychologist')" class="chose-user__item flex flex-col items-center gap-3">
                         <div class="chose-user__item-img">
                             <img class="rounded-full" src="@/assets/images/png/Ellipse-2.png" alt="">
                         </div>
                         <h4 class="chose-user__item-title text-xl font-medium">ПСИХОЛОГ</h4>
                     </li>
-                    <li @click="toPage('teacher')" class="chose-user__item flex flex-col items-center gap-3">
+                    <li @click="toPage('teacher-dash')" class="chose-user__item flex flex-col items-center gap-3">
                         <div class="chose-user__item-img">
                             <img class="rounded-full" src="@/assets/images/png/Ellipse-3.png" alt="">
                         </div>
@@ -37,10 +37,13 @@
 
 <script setup>
 import { useStore } from '~~/store/store';
+definePageMeta({
+    layout: "without",
+});
 const store = useStore()
 const router = useRouter()
 function toPage(text) {
-    store.loginPage = text
+    localStorage.setItem('loginPage', text)
     router.push('/login')
 }
 </script>
