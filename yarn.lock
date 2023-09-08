@@ -543,6 +543,23 @@
   resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.18.20.tgz"
   integrity sha512-kTdfRcSiDfQca/y9QIkng02avJ+NCaQvrMejlsB3RRv5sE9rRoeBPISaZpKxHELzRxZyLvNts1P27W3wV+8geQ==
 
+"@ffmpeg/ffmpeg@^0.12.6":
+  version "0.12.6"
+  resolved "https://registry.yarnpkg.com/@ffmpeg/ffmpeg/-/ffmpeg-0.12.6.tgz#34dd5959b9446837240a32acb6979474e8935500"
+  integrity sha512-4CuXDaqrCga5qBwVtiDDR45y65OGPYZd7VzwGCGz3QLdrQH7xaLYEjU19XL4DTCL0WnTSH8752b8Atyb1SiiLw==
+  dependencies:
+    "@ffmpeg/types" "^0.12.0"
+
+"@ffmpeg/types@^0.12.0":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@ffmpeg/types/-/types-0.12.1.tgz#659e4eb51f3e01e145a6fe99e5b8e12a373aa59a"
+  integrity sha512-n+v9yvxaBPi1Z/1wy2PvqMHvED3qV7LXBWnBmMBAAzybbs4KWp6wrhCTMxITORMHXpPZEEupsBH1iEoLuzYSUw==
+
+"@ffmpeg/util@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@ffmpeg/util/-/util-0.12.0.tgz#62dacd3b402b5fd0849e8542a6c977c7a7e04694"
+  integrity sha512-8sHCW8H/ngqVhbRvCCX4e4uDNgZVoz8uNRry1zphIyzdX6flfBa2TmVwJ4g9/Qw//eAubEnuHaSxDGWWxcOTjg==
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.3.0.tgz"
@@ -614,7 +631,7 @@
 
 "@kurkle/color@^0.3.0":
   version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  resolved "https://registry.npmjs.org/@kurkle/color/-/color-0.3.2.tgz"
   integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
 
 "@mapbox/node-pre-gyp@^1.0.5":
@@ -1583,7 +1600,7 @@ asynckit@^0.4.0:
 
 autoprefixer@^10.4.14, autoprefixer@^10.4.15:
   version "10.4.15"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.15.tgz#a1230f4aeb3636b89120b34a1f513e2f6834d530"
+  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.15.tgz"
   integrity sha512-KCuPB8ZCIqFdA4HwKXsvz7j6gvSDNhDP7WnUjBleRkKjPdvCmHFuQ77ocavI8FT6NdvlBnE2UFr2H4Mycn8Vew==
   dependencies:
     browserslist "^4.21.10"
@@ -1877,7 +1894,7 @@ chalk@^5.2.0, chalk@^5.3.0:
 
 chart.js@^4.3.3:
   version "4.3.3"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.3.3.tgz#dcd98afadf9fcfa5219e72ace5912092ea48fd36"
+  resolved "https://registry.npmjs.org/chart.js/-/chart.js-4.3.3.tgz"
   integrity sha512-aTk7pBw+x6sQYhon/NR3ikfUJuym/LdgpTlgZRe2PaEhjUMKBKyNaFCMVRAyTEWYFNO7qRu7iQVqOw/OqzxZxQ==
   dependencies:
     "@kurkle/color" "^0.3.0"
@@ -2830,9 +2847,9 @@ fs.realpath@^1.0.0:
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
 fsevents@~2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
-  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -5527,7 +5544,7 @@ svgo@^3.0.2:
 
 tailwindcss@^3.3.3:
   version "3.3.3"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.3.3.tgz#90da807393a2859189e48e9e7000e6880a736daf"
+  resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.3.3.tgz"
   integrity sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"

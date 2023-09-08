@@ -222,15 +222,16 @@
                         </div>
 
                     </div>
-                    <li v-for="user in 5" @click="openBtn($event)"
+                    <li v-for="(user) in humans?.data?.results" @click="openBtn($event)"
                         class="bg-[#fff] admin-item cursor-pointer hover:bg-[#f5f5f5] text-[#222] grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] shadow-md rounded-md p-3.5"
                         :key="user">
                         <div class="pointer-events-none admin-list__item-user">
-                            <img class="rounded-lg mb-1 admin-list__item-user-img" src="https://picsum.photos/100">
-                            <h2 class="user-name text-lg font-medium">Петров Василий</h2>
+                            <img class="rounded-lg mb-1 admin-list__item-user-img" :src="user?.face_result?.source_photo">
+                            <h2 class="user-name text-lg font-medium"><span>{{ user?.meta?.first_name }}</span> <span>{{
+                                user?.meta?.last_name }}</span></h2>
                         </div>
-                        <h3 class="pointer-events-none admin-list__item-class">6 “Б”</h3>
-                        <h4 class="pointer-events-none admin-list__item-age">12</h4>
+                        <h3 class="pointer-events-none admin-list__item-class">{{ user?.watch_lists[0] }} “Б”</h3>
+                        <h4 class="pointer-events-none admin-list__item-age">{{ user?.meta?.age }}</h4>
                         <h4 class="pointer-events-none admin-list__item-emotion">Позитивный</h4>
                         <ul class="flex-col gap-2 pointer-events-none flex pb-[60px]">
                             <li class="pointer-events-none flex flex justify-between">Веселье: <span>85%</span></li>
@@ -238,7 +239,8 @@
                             <li class="pointer-events-none flex flex justify-between">Злость <span>0%</span></li>
                             <li class="pointer-events-none flex flex justify-between">Страх: <span> 0%</span> </li>
                         </ul>
-                        <button class="ml-auto mt-10 btn flex hidden justify-center rounded-md bg-[#2F4858] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-80 ">редактировать</button>
+                        <button
+                            class="ml-auto mt-10 btn flex hidden justify-center rounded-md bg-[#2F4858] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-80 ">редактировать</button>
                     </li>
                 </ul>
                 <div class="admin-filter w-1/4 mt-10">
@@ -434,9 +436,9 @@ const store = useStore()
 const check = ref('student')
 const checkedStudent = ref('Ученик')
 function openBtn(e) {
-    console.log(e.target);
-    document.querySelectorAll('.admin-item').forEach((el,i)=> {
-        if(el == e.target) {
+    // console.log(e.target);
+    document.querySelectorAll('.admin-item').forEach((el, i) => {
+        if (el == e.target) {
             document.querySelectorAll('.btn')[i].classList.toggle('hidden')
         }
     })
@@ -450,20 +452,42 @@ const params = reactive({
 })
 
 
-const humans = ref(null)
-// async function getHumans() {
-//     store.loader = true
-//     const data = await $fetch(store.baseUrl + "/Card/Humans", {
-//         method: 'GET',
-//         headers: {
-//             'X-APP-SERIAL': "9cfa3efcf90bb889d2ba7338101db808e00c4bf74dc57fa96722cd71423c8020"
-//         }
-//     })
-//     humans.value = data
-//     store.loader = false
 
-// }
-// await getHumans()
+const humans = ref(null)
+
+async function getHumans() {
+    store.loader = true
+    const data = await $fetch("http://95.47.127.26:50008/Card/Humans", {
+        method: 'GET',
+        headers: {
+            'X-APP-SERIAL': "9cfa3efcf90bb889d2ba7338101db808e00c4bf74dc57fa96722cd71423c8020"
+        }
+    })
+    humans.value = data
+    store.loader = false
+    console.log(data);
+}
+await getHumans()
+const humansDetails = ref([])
+const getHumansDetails = async () => {
+    const res = await $fetch('https://faceids.tadi.uz/events/faces/?limit=5', {
+        method: 'GET',
+        headers: {
+            'Authorization': "Token 2a1bc15f2f20631edb18203c5ef1ed14d7c0335a2575b3d0cff4724baa002a7a"
+        }
+    })
+    // console.log();
+    res.results.forEach(async (item) => {
+        const data = await $fetch('https://faceids.tadi.uz/events/faces/' + item.id, {
+            method: 'GET',
+            headers: {
+                'Authorization': "Token 2a1bc15f2f20631edb18203c5ef1ed14d7c0335a2575b3d0cff4724baa002a7a"
+            }
+        })
+        humansDetails.value.push(data)
+    })
+}
+getHumansDetails()
 const filterParams = reactive({
     age: "По возрасту",
     class: "По классу",
@@ -537,8 +561,10 @@ const teachers = [
 .user-name {
     text-transform: capitalize;
 }
+
 .admin-item {
     position: relative;
+
     .btn {
         position: absolute;
         bottom: 15px;

@@ -27,7 +27,7 @@
                                     class="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                         </div>
-
+                        <button class="block text-sm font-medium leading-6 text-gray-900">Сброс пароля</button>
                         <div>
                             <button type="submit"
                                 class="flex w-full justify-center rounded-md bg-[#2F4858] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-80 ">Войти</button>
@@ -44,42 +44,37 @@
                     v-if="video">Включить веб-камеру </button>
                 <video ref="webcamRef" :class="{ 'block': !video }" class="object-cover hidden w-full h-full rounded-md"
                     autoplay></video>
-
+                
             </div>
         </div>
 
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+
 import { useStore } from '~~/store/store';
 definePageMeta({
     layout: "without",
 });
+
 const store = useStore()
 const router = useRouter()
 const webcamRef = ref(null)
 const video = ref(true)
+let recordedChunks = ref([]);
+const baseURL = 'https://unpkg.com/@ffmpeg/core-mt@0.12.2/dist/esm'
 async function start() {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true })
     webcamRef.value.srcObject = stream;
     video.value = false
-}
-function takepicture() {
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext("2d");
-    context.drawImage(webcamRef.value, 0, 0, 320, 200);
-    const data = canvas.toDataURL("image/png");
-    const base64Data = canvas.toDataURL("image/png");
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
 
-    const base64ImageData = base64Data.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-
-    const binaryImageData = atob(base64ImageData);
-    const blob = new Blob([new Uint8Array(binaryImageData.length).map((_, i) => binaryImageData.charCodeAt(i))], { type: 'image/jpeg' });
-    const objectURL = URL.createObjectURL(blob);
-
-    const img = new Image();
-    console.log(objectURL);
+    mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+            recordedChunks.value.push(event.data);
+        }
+    };
 }
 const email = ref("")
 const password = ref("")
@@ -88,14 +83,22 @@ async function login() {
     password.value = ""
     if (localStorage.getItem('loginPage') == 'parent') {
         router.push('/parent')
-    } else if(localStorage.getItem('loginPage') == 'teacher-dash'){
+    } else if (localStorage.getItem('loginPage') == 'teacher-dash') {
         router.push('/teacher-dash')
-    } else if(localStorage.getItem('loginPage') == 'psychologist') {
+    } else if (localStorage.getItem('loginPage') == 'psychologist') {
         router.push('/psychologist')
     } else {
         router.push('/dashboard')
     }
 }
+onMounted(() => {
+    // mediaRecorder.onstop = () => {
+    //     const blob = new Blob(chunks, { type: 'video/webm' });
+    //     chunks = [];
+    //     const videoUrl = URL.createObjectURL(blob);
+    //     recordedVideo.src = videoUrl;
+    // };
+})
 </script>
 
 <style lang="scss">

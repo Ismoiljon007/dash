@@ -24,10 +24,10 @@
             <div class="about-student__info grid">
                 <div class="bg-[#fff] text-[#222] grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] shadow-md rounded-md p-3.5">
                     <div class="admin-list__item-user">
-                        <img class="rounded-lg mb-1 admin-list__item-user-img" src="https://picsum.photos/120" alt="">
+                        <img class="rounded-lg mb-1 admin-list__item-user-img" :src="details?.data?.face_result?.source_photo" alt="">
                         <h2 class="text-lg font-medium">Алиев Валижон</h2>
                     </div>
-                    <h3 class="admin-list__item-class">6 “Б”</h3>
+                    <h3 class="admin-list__item-class"><span>{{  }}</span> “Б”</h3>
                     <h4 class="admin-list__item-age">12</h4>
                     <h4 class="admin-list__item-emotion">Позитивный</h4>
                     <ul class="flex flex-col gap-2">
@@ -164,7 +164,18 @@
 </template>
 
 <script setup>
-
+const {id} = useRoute().params
+const details = ref(null)
+async function getDetails() {
+    const data = await $fetch('http://95.47.127.26:50008/Card/Humans/'+id, {
+        method: 'GET',
+        headers: {
+            'X-APP-SERIAL': "9cfa3efcf90bb889d2ba7338101db808e00c4bf74dc57fa96722cd71423c8020"
+        }
+    })
+    details.value = data
+}
+await getDetails()
 </script>
 
 <style lang="scss">

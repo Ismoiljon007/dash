@@ -227,12 +227,21 @@
 <script setup>
 import { useStore } from '~~/store/store';
 const store = useStore()
-const humans = await $fetch(store.baseUrl + "/Card/Humans", {
-    method: 'GET',
-    headers: {
-        'X-APP-SERIAL': "9cfa3efcf90bb889d2ba7338101db808e00c4bf74dc57fa96722cd71423c8020"
-    }
-})
+const humans = ref(null)
+
+async function getHumans() {
+    store.loader = true
+    const data = await $fetch("http://95.47.127.26:50008/Card/Humans", {
+        method: 'GET',
+        headers: {
+            'X-APP-SERIAL': "9cfa3efcf90bb889d2ba7338101db808e00c4bf74dc57fa96722cd71423c8020"
+        }
+    })
+    humans.value = data
+    store.loader = false
+    console.log(data);
+}
+getHumans()
 const check = ref('student')
 const checkedStudent = ref('Ученик')
 
