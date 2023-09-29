@@ -51,8 +51,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
-
+<script setup>
 import { useStore } from '~~/store/store';
 definePageMeta({
     layout: "without",
@@ -92,12 +91,6 @@ async function login() {
     }
 }
 onMounted(() => {
-    // mediaRecorder.onstop = () => {
-    //     const blob = new Blob(chunks, { type: 'video/webm' });
-    //     chunks = [];
-    //     const videoUrl = URL.createObjectURL(blob);
-    //     recordedVideo.src = videoUrl;
-    // };
 })
 </script>
 

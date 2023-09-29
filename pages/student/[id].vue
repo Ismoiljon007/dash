@@ -13,28 +13,21 @@
                     Возраст</div>
                 <div
                     class="drop relative w-full cursor-default rounded-md bg-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6 ">
-                    Средний фон ЭС</div>
-                <div
-                    class="drop relative w-full cursor-default rounded-md bg-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6 ">
                     Фон ЭС сегодня</div>
                 <div
                     class="drop relative w-full cursor-default rounded-md bg-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6 ">
                     Карта эмоций</div>
             </div>
             <div class="about-student__info grid">
-                <div class="bg-[#fff] text-[#222] grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] shadow-md rounded-md p-3.5">
+                <div class="bg-[#fff] text-[#222] grid item shadow-md rounded-md p-3.5">
                     <div class="admin-list__item-user">
-                        <img class="rounded-lg mb-1 admin-list__item-user-img" :src="details?.data?.face_result?.source_photo" alt="">
-                        <h2 class="text-lg font-medium">Алиев Валижон</h2>
+                        <img class="rounded-lg mb-1 admin-list__item-user-img" :src="details?.main_image" alt="">
+                        <h2 class="text-lg font-medium">{{ details?.full_name }}</h2>
                     </div>
-                    <h3 class="admin-list__item-class"><span>{{  }}</span> “Б”</h3>
-                    <h4 class="admin-list__item-age">12</h4>
-                    <h4 class="admin-list__item-emotion">Позитивный</h4>
+                    <h3 class="admin-list__item-class">{{ details?.pupil_class }}</h3>
+                    <h4 class="admin-list__item-age">{{ age_user }}</h4>
                     <ul class="flex flex-col gap-2">
-                        <li class="flex justify-between">Веселье: <span>85%</span></li>
-                        <li class="flex justify-between">Грусть: <span>15%</span></li>
-                        <li class="flex justify-between">Злость <span>0%</span></li>
-                        <li class="flex justify-between">Страх: <span> 0%</span> </li>
+                        <li class="flex justify-between">{{ details.emotions.length ? Math.max(...temp) : 0 }}%</li>
                     </ul>
                 </div>
                 <div
@@ -52,7 +45,7 @@
                 <div class="bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5 about-student__state">
                     <h3 class="mb-5 text-xl font-medium about-student__send-title">Состояние</h3>
                     <div class="chart">
-                        <pie/>
+                        <pie />
                     </div>
                 </div>
                 <div class="bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5 about-student__score">
@@ -65,9 +58,8 @@
                 <div class="bg-[#fff] bg-[#fff] text-[#222] shadow-md rounded-md p-3.5 about-student__week-em">
                     <h3 class="mb-5 text-xl font-medium about-student__send-title">Эмоции за неделю</h3>
                     <div class="grid activity">
-                        <div class="activity-item flex flex-col gap-2" v-for="item in 7" :key="item">
-                            <img class="rounded-md" src="https://picsum.photos/53/63" alt="">
-                            <img class="rounded-md" src="https://picsum.photos/53/63" alt="">
+                        <div class="activity-item flex flex-col gap-2" v-for="item in details?.fullframe" :key="item">
+                            <img class="rounded-md" :src="item?.fullframe" alt="">
                         </div>
                     </div>
                 </div>
@@ -164,35 +156,73 @@
 </template>
 
 <script setup>
-const {id} = useRoute().params
+import { useStore } from '~~/store/store';
+const store = useStore()
+const { id } = useRoute().params
 const details = ref(null)
 async function getDetails() {
-    const data = await $fetch('http://95.47.127.26:50008/Card/Humans/'+id, {
+    const data = await $fetch(store.baseUrl + '/users/pupils/' + id, {
         method: 'GET',
-        headers: {
-            'X-APP-SERIAL': "9cfa3efcf90bb889d2ba7338101db808e00c4bf74dc57fa96722cd71423c8020"
-        }
+
     })
+
     details.value = data
+
 }
 await getDetails()
+const age_user = ref(0)
+onMounted(() => {
+    user.emotions.forEach((element) => {
+        temp.value.push(element.confidence)
+    });
+
+
+    function calculateAge(dateOfBirth) {
+        const dob = new Date(dateOfBirth);
+        const today = new Date();
+
+        let age = today.getFullYear() - dob.getFullYear();
+
+        const birthMonth = dob.getMonth();
+        const currentMonth = today.getMonth();
+
+        if (currentMonth < birthMonth || (currentMonth === birthMonth && today.getDate() < dob.getDate())) {
+            age--;
+        }
+
+        return age;
+    }
+
+    // Example usage:
+    const dateOfBirth = user?.birth_date;
+    const age = calculateAge(dateOfBirth);
+    if (user?.birth_date) {
+        age_user.value = age
+    } else {
+        age_user.value = 'Нет данных'
+    }
+})
 </script>
 
 <style lang="scss">
 .about-student {
     padding: 40px 0;
 }
+
 .activity {
-    grid-template-columns: repeat(7,1fr);
+    grid-template-columns: repeat(7, 1fr);
     gap: 10px;
 }
+
 .about-student__notification-wr {
     button {
         margin-top: 20px;
         margin-left: auto;
     }
 }
-
+.item {
+    grid-template-columns: 1fr 1.2fr 1.2fr 1fr;
+}
 .about-student__send-wr {
     gap: 30px;
 }
@@ -234,9 +264,7 @@ await getDetails()
     justify-content: center;
 }
 
-.about-student__activity {
-
-}
+.about-student__activity {}
 
 .about-student__state {
     height: 100%;
@@ -249,9 +277,7 @@ await getDetails()
     margin-top: 10px;
 }
 
-.about-student__score {
-    
-}
+.about-student__score {}
 
 .about-student__week-em {
     height: 100%;
@@ -259,7 +285,7 @@ await getDetails()
 
 .about-student__header {
     margin-bottom: 10px;
-    grid-template-columns: 1.1fr 1fr 1fr 1fr 1fr 2fr;
+    grid-template-columns: 1.1fr 1fr 1.5fr 1fr 2fr;
     gap: 5px;
 
     .drop {
@@ -279,5 +305,16 @@ await getDetails()
 .about-student__info {
     gap: 10px;
     grid-template-columns: 5.3fr 2fr;
+}
+
+.activity-item {
+    width: 40px;
+    height: 40px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 </style>

@@ -70,7 +70,8 @@
                                     tabindex="-1" role="listbox" aria-labelledby="listbox-label"
                                     aria-activedescendant="listbox-option-3">
 
-                                    <li @click="itemChange(), params.class = item.name" class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
+                                    <li @click="itemChange(), params.class = item.name"
+                                        class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
                                         id="listbox-option-0" role="option" v-for="item in students" :key="item"
                                         :class="checkedStudent === item.name ? 'bg-[#f1f5f9]' : ''">
                                         <div class="flex items-center">
@@ -111,7 +112,8 @@
                                     tabindex="-1" role="listbox" aria-labelledby="listbox-label"
                                     aria-activedescendant="listbox-option-3">
 
-                                    <li @click="itemChange(), params.age = item.name" class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
+                                    <li @click="itemChange(), params.age = item.name"
+                                        class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
                                         id="listbox-option-0" role="option" v-for="item in students" :key="item"
                                         :class="checkedStudent === item.name ? 'bg-[#f1f5f9]' : ''">
                                         <div class="flex items-center">
@@ -152,7 +154,8 @@
                                     tabindex="-1" role="listbox" aria-labelledby="listbox-label"
                                     aria-activedescendant="listbox-option-3">
 
-                                    <li @click="itemChange(), params.middleEmotion = item.name" class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
+                                    <li @click="itemChange(), params.middleEmotion = item.name"
+                                        class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
                                         id="listbox-option-0" role="option" v-for="item in students" :key="item"
                                         :class="checkedStudent === item.name ? 'bg-[#f1f5f9]' : ''">
                                         <div class="flex items-center">
@@ -193,7 +196,8 @@
                                     tabindex="-1" role="listbox" aria-labelledby="listbox-label"
                                     aria-activedescendant="listbox-option-3">
 
-                                    <li @click="itemChange(), params.emotion = item.name" class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
+                                    <li @click="itemChange(), params.emotion = item.name"
+                                        class="drop-item cursor-pointer text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 hover:bg-[#f1f5f9]"
                                         id="listbox-option-0" role="option" v-for="item in students" :key="item"
                                         :class="checkedStudent === item.name ? 'bg-[#f1f5f9]' : ''">
                                         <div class="flex items-center">
@@ -215,8 +219,8 @@
                         </div>
 
                     </div>
-                    <li v-for="user in humans?.data?.results" :key="user">
-                        <user class="hover:bg-[#f5f5f5]" :user="user"/>
+                    <li v-for="user in humans?.results" :key="user">
+                        <user class="hover:bg-[#f5f5f5]" :user="user" />
                     </li>
                 </ul>
             </div>
@@ -231,11 +235,8 @@ const humans = ref(null)
 
 async function getHumans() {
     store.loader = true
-    const data = await $fetch("http://95.47.127.26:50008/Card/Humans", {
+    const data = await $fetch(store.baseUrl + "/users/pupils/", {
         method: 'GET',
-        headers: {
-            'X-APP-SERIAL': "9cfa3efcf90bb889d2ba7338101db808e00c4bf74dc57fa96722cd71423c8020"
-        }
     })
     humans.value = data
     store.loader = false
@@ -315,5 +316,4 @@ const teachers = [
 .fade-leave-active {
     transition: 0.3s;
     transform: translate(0%);
-}
-</style>
+}</style>
